@@ -1,0 +1,115 @@
+<!-- You successfully used ejs-mate by calling in layout one thing to note that is weird about this layout call it starts scanning from the views directory to find the layouts/boilerplate not from this directory in which this file is present so you don't need to do ../layouts/boilerplate here. -->
+<% layout('layouts/boilerplate') %>
+<div class="row">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds/<%= campground._id %>?_method=PUT"
+      method="post"
+      class="validated-form"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          name="campground[title]"
+          value="<%=campground.title%>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Title required!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input
+          type="text"
+          id="location"
+          class="form-control"
+          name="campground[location]"
+          value="<%=campground.location%>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Location required!</div>
+      </div>
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label"
+          >Add More Image(s)</label
+        >
+        <input
+          class="form-control"
+          type="file"
+          name="image"
+          id="formFileMultiple"
+          multiple
+        />
+        <!-- Putting multiple in the line above is certainly useful without it we won't be able to download multiple files. -->
+        <!-- I changed name to image above cause that what's multer is waiting/looking for. -->
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="price-label">$</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0.00"
+            name="campground[price]"
+            aria-label="price"
+            aria-describedby="price-label"
+            value="<%= campground.price %>"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Campground Price required!</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          type="text"
+          id="description"
+          class="form-control"
+          name="campground[description]"
+          required
+        >
+<%= campground.description %></textarea
+        >
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Description required!</div>
+      </div>
+      <div class="mb-3">
+        <% for( let i = 0; i < campground.images.length; i++ ) { %>
+        <img
+          src="<%= campground.images[i].thumbnail %>"
+          alt=""
+          class="img-thumbnail"
+        />
+        <div class="form-check-inline">
+          <!-- Why does using inline align these checkboxes to the left ? -->
+          <input
+            type="checkbox"
+            name="deleteImagesFilenames[]"
+            id="image-<%=i%>"
+            value="<%= campground.images[i].filename %>"
+          />
+          <!-- deleteImagesFilenames[] says it's a array -->
+          <!-- In value we put filename that cloudinary gave us -->
+          <!-- What doing those above two things does is sends the array of filenames whhere the checkboxes were checked to the server on req.body -->
+          <label for="image-<%=i%>">Delete</label>
+        </div>
+        <% } %>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info text-white">Update Campground</button>
+      </div>
+    </form>
+    <a href="/campgrounds/<%=campground._id%>">Back To Campground</a>
+  </div>
+</div>

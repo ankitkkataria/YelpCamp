@@ -1,0 +1,42 @@
+<!-- You successfully used ejs-mate by calling in layout one thing to note that is weird about this layout call it starts scanning from the views directory to find the layouts/boilerplate not from this directory in which this file is present so you don't need to do ../layouts/boilerplate here. -->
+<% layout('layouts/boilerplate') %>
+<div id="cluster-map"></div>
+<!-- This map id is where we would like the cluster map to show. -->
+<h1>All Campgrounds</h1>
+<!-- <a href="/campgrounds/new" class="mb-3">Add Campground</a> -->
+<% for (let campground of campgrounds) { %>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <% if (campground.images.length) { %>
+        <img src="<%= campground.images[0].url %>" class="img-fluid rounded" />
+      <% } else { %>
+        <img crossorigin="anonymous img-fluid" src="https://res.cloudinary.com/dnttigdlc/image/upload/v1689287215/YelpCamp/m6mxumocebno3llifhrx.jpg" class="img-fluid rounded" />
+        <% } %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text"><%= campground.description %></p>
+        <p class="card-text">
+          <small class="text-muted"><%= campground.location %></small>
+        </p>
+        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary"
+          >View <%= campground.title %></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<script>
+  // We're doing this so my script showPageMap can access the mapboxToken.
+  const mapboxToken = '<%-process.env.MAPBOX_TOKEN%>';
+  const campgrounds = {  features: <%- JSON.stringify(campgrounds) %> }; // This works 
+  // Sending all the campground objects under the key of features cause that's what clusterMap using mapbox is expecting.
+</script>
+
+<script src="/javascriptFiles/clusterMap.js"></script>
+
+

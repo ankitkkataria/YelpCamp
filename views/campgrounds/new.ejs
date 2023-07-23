@@ -1,0 +1,117 @@
+<!-- You successfully used ejs-mate by calling in layout one thing to note that is weird about this layout call it starts scanning from the views directory to find the layouts/boilerplate not from this directory in which this file is present so you don't need to do ../layouts/boilerplate here. -->
+<!-- Adding some client side validations to do that we can just use required in all the fields and that will trigger the default brower required field action but if you want something a bit more custom or nice looking then just go ahead and use bootstrap to help us kind of beautify it a little bit. -->
+<% layout('layouts/boilerplate') %>
+<div class="row">
+  <h1 class="text-center">Add New Campground</h1>
+  <div class="col-6 offset-3">
+    <!-- We have changed the encoding of the form from url-encoded (default) to multipart/form-data bcz we would like to provide the user with the ability to upload images to also to parse this kind of form we need to use multer middleware without this middleware we would only see a empty object when you do res.send. -->
+    <form action="/campgrounds" method="post" class="validated-form" novalidate enctype="multipart/form-data">
+      <!-- novalidate says don't use the default validation that's done by the browser -->
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          name="campground[title]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Title required!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input
+          type="text"
+          id="location"
+          class="form-control"
+          name="campground[location]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Location required!</div>
+      </div>
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Upload Image(s)</label>
+        <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
+      </div>
+      <!-- <div class="mb-3">
+        <label class="form-label" for="imageURL">Image URL</label>
+        <input
+          type="text"
+          id="imageURL"
+          class="form-control"
+          name="campground[image]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Image URL required!</div>
+      </div> -->
+      <div class="mb-3">
+        <label class="form-label" for="price">Campground Price</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="price-label">$</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0.00"
+            name="campground[price]"
+            aria-label="price"
+            aria-describedby="price-label"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Campground Price required!</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          type="text"
+          id="description"
+          class="form-control"
+          name="campground[description]"
+          required
+        ></textarea>
+      </div>
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Description required!</div>
+      <div class="mb-3">
+        <button class="btn btn-success">Submit</button>
+      </div>
+    </form>
+    <a href="/campgrounds">All Campgrounds</a>
+  </div>
+</div>
+
+<!-- <form action="/campgrounds" method="POST">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="campground[title]">
+    </div>
+    <div>
+        <label for="location">Location</label>
+        <input type="text" id="location" name="campground[location]">
+    </div>
+    <button>Add Campground</button>
+</form>
+Because of campground[title] and campground[location]
+It will return this object down below.
+   {
+    "campground": 
+    {
+    "title": "anything",
+    "location": "anywhere"
+    } 
+   }
+So the request.body will contain the object above inside it. -->
+
+<!-- It's a matter of personal preference, but the object would be different in the end; with the campground[property] approach, the properties would be found in the req.body.campground object, that one could pass directly in one go, without needing to create each property in the route with the other approach, like this example:
+
+var name = req.body.name;
+var image = req.body.image;
+var desc = req.body.description;
+var newCampground = {name: name, image: image, description: desc}
+However, although this needed some years ago, now, with spread, we no longer need to use the long way, so, as I mentioned, both options are fine nowadays. -->

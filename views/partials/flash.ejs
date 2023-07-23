@@ -1,0 +1,33 @@
+<!-- Partial for flashing success messages -->
+<% if (success && success.length) { %>
+<!-- The above condition checks if there is a success message that's being passed through only then we will see a alert but since success is a array it should also have a length of greater than zero only then we should show something -->
+<!-- Also in the if condition just using success.length will work exactly the same. -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%= success %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+<% } %> 
+<!-- Now this gives you to ability to add a success message now it's not that we want to show success alerts on the show page only we would also like to show them on index page as well (like in case when i successfully delete a campground) so it's better to have this partial included on the layout/boilerplae page itself cause that way we will be able to access it everywhere and we don't have to repeat this partial inclusion on both show and index page. -->
+
+<!-- Partial for flashing error messages -->
+<% if (error && error.length) { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%= error %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+<% } %>
+
+<!-- Instead of repeating the above blocks of code for different kind of messages from the express side may be you can send a universal object called messages like messages = {'success': [success messages], 'danger': [danger messages], 'warning': [warning messages]} and you can just use ejs out to substitute danger,success and warning etc. in all the right places in lines like 20,21 and 22 everything else below that is just repeated code. -->
+
