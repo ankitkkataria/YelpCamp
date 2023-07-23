@@ -26,6 +26,7 @@ const helmet = require("helmet");
 // const Joi = require('joi'); // Not needed here anymore as we are importing our schemas from validationSchemas file and that itself is importing joi.
 const MongoStore = require("connect-mongo");
 const dbUrl = process.env.DB_URL;
+const secretKey = proces.env.SECRET;
 // const dbUrl = "mongodb://127.0.0.1:27017/yelpCamp";
 
 // Connecting to the mongoose database server.
@@ -56,8 +57,8 @@ const mongoSessionStore = MongoStore.create({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60, // If you're using a newer version of Express Session, you don't want to save all the session on database. Every single time that the user refreshes the page, you can lazy update the session by limiting a periodof time. So this is referring to basically unnecessary re saves unnecessary updates where the data in the sessionhas not changed.So if the data has changed, if it has or if it needs to be updated, it will be saved and updated.But if it is exactly the same as it was, please don't continuously update every time a user refreshesthe page.Do it once every 24 hours, for example, which is what we're saying here.
   crypto: {
-      secret: 'thisshouldbeabettersecret!'
-  }
+    secret: secretKey,
+  },
 });
 
 // Managing erros that might occur while creating the above mongoSessionStore.
@@ -68,7 +69,7 @@ mongoSessionStore.on("error", function (e) {
 // Session Middleware
 const sessionConfig = {
   name: "sess", // What this does is changes the session id cookie's name from connect.sid to whatever you put here. (It's very important to protect this cookie cause using it somebody might be able to login as you and steal ur data.)
-  secret: "thisshouldbeabettersecret!",
+  secret: secretKey,
   resave: false,
   saveUninitialized: false,
   store: mongoSessionStore,
