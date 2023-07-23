@@ -26,7 +26,7 @@ const helmet = require("helmet");
 // const Joi = require('joi'); // Not needed here anymore as we are importing our schemas from validationSchemas file and that itself is importing joi.
 const MongoStore = require("connect-mongo");
 const dbUrl = process.env.DB_URL;
-const secretKey = proces.env.SECRET;
+const secretKey = process.env.SECRET;
 // const dbUrl = "mongodb://127.0.0.1:27017/yelpCamp";
 
 // Connecting to the mongoose database server.
