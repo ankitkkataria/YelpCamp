@@ -3,7 +3,7 @@
 <!-- Even though stylesheets should normally be in head but we're putting them here cause this is the only page which needs this and also if you look in the path we did not do ../public/stylesheets/stars.css cause public directory is accessable from everywhere. -->
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 <div class="row">
-  <div class="col-6">
+  <div class="col-12 col-md-6">
     <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <% for( let i = 0; i < campground.images.length; i++ ) { %>
@@ -72,7 +72,7 @@
       <div class="card-footer text-muted">3 days ago</div>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-md-6">
     <div id="map"></div>
     <% if (currUser) { %>
     <!-- If you're not signed in you should not see the leave a review form -->
