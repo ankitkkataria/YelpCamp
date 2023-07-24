@@ -72,7 +72,7 @@
       <div class="card-footer text-muted">3 days ago</div>
     </div>
   </div>
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 mt-3 mt-md-0">
     <div id="map"></div>
     <% if (currUser) { %>
     <!-- If you're not signed in you should not see the leave a review form -->
@@ -137,7 +137,7 @@
     </form>
     <% } %> <% if (!currUser) { %>
     <!-- This is so i can show reviews written there is no one is signed in. -->
-    <h4>Reviews</h4>
+    <h4 class="my-3">Reviews</h4>
     <% } %> <% for (let review of campground.reviews) { %>
     <div class="card mb-3">
       <div class="card-body">

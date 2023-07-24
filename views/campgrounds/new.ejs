@@ -3,7 +3,7 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
   <h1 class="text-center">Add New Campground</h1>
-  <div class="col-6 offset-3">
+  <div class="col-12 col-md-6 offset-md-3">
     <!-- We have changed the encoding of the form from url-encoded (default) to multipart/form-data bcz we would like to provide the user with the ability to upload images to also to parse this kind of form we need to use multer middleware without this middleware we would only see a empty object when you do res.send. -->
     <form action="/campgrounds" method="post" class="validated-form" novalidate enctype="multipart/form-data">
       <!-- novalidate says don't use the default validation that's done by the browser -->
