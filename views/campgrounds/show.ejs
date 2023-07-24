@@ -135,10 +135,9 @@
       <button class="btn btn-success">Submit</button>
       <% } %>
     </form>
-    <% } %> <% if (!currUser) { %>
-    <!-- This is so i can show reviews written there is no one is signed in. -->
+    <% } %> 
     <h4 class="my-3">Reviews</h4>
-    <% } %> <% for (let review of campground.reviews) { %>
+    <% for (let review of campground.reviews) { %>
     <div class="card mb-3">
       <div class="card-body">
         <h6 class="card-title"><%= review.author.username %></h6>
